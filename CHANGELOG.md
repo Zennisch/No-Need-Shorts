@@ -1,1 +1,2 @@
 - pnpm dlx wxt@latest init
+- pnpm install tailwindcss @tailwindcss/vite
