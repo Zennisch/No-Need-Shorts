@@ -1,2 +1,7 @@
 - pnpm dlx wxt@latest init
 - pnpm install tailwindcss @tailwindcss/vite
+- pnpm add shadcn class-variance-authority cn lucide-react tw-animate-css
+- pnpm add @base-ui/react
+- pnpm dlx shadcn@latest add button switch
+- pnpm add @animate-ui/react motion
+- 
