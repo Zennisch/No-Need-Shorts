@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 
 function App() {
@@ -7,6 +8,12 @@ function App() {
         Click on the WXT and React logos to learn more
       </p>
       <Switch />
+      <Button className="mt-4" onClick={() => window.open("https://wxtjs.org", "_blank")}>
+        WXT
+      </Button>
+      <Button className="mt-4" onClick={() => window.open("https://react.dev", "_blank")}>
+        React
+      </Button>
     </div>
   );
 }

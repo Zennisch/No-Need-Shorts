@@ -3,5 +3,7 @@
 - pnpm add shadcn class-variance-authority cn lucide-react tw-animate-css
 - pnpm add @base-ui/react
 - pnpm dlx shadcn@latest add button switch
+- pnpm dlx shadcn@latest add --all (If you want to add all components)
 - pnpm add @animate-ui/react motion
-- 
+- pnpm dlx @animate-ui/cli@latest animate all --dry-run
+- pnpm dlx @animate-ui/cli@latest animate all
