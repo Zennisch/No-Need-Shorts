@@ -1,65 +1,52 @@
-import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import youtubeIcon from "@/assets/youtubeIcon.png";
 import { Switch } from "@/components/ui/switch";
-import { countStorage } from "../lib/storage/count";
-import { LoaderCircle } from "@/components/animate-ui/icons/loader-circle";
+import { restrictionStorage } from "../lib/storage/restriction";
 
-function App() {
-  // const count = await countStorage.getValue();
-  const [counter, setCounter] = useState(0);
-  const [loading, setLoading] = useState(true);
+const App = () => {
+  const [youtubeRestriction, setYoutubeRestriction] = useState(false);
 
   useEffect(() => {
-    // const fetchCount = async () => {
-    // const count = await countStorage.getValue();
-    // setCounter(count.count);
-
-    // };
-    // fetchCount();
-
-    countStorage.getValue().then((count) => {
-      setCounter(count.count);
-      setLoading(false);
+    restrictionStorage.getValue().then((value) => {
+      if (value) {
+        setYoutubeRestriction(value.youtube);
+      }
     });
   }, []);
 
-  const handleCounterIncrement = async () => {
-    // const newCount = counter + 1;
-    // setCounter(newCount);
-    // await countStorage.setValue({ count: newCount });
-    setCounter((prevCount) => {
-      const newCount = prevCount + 1;
-
-      void countStorage.setValue({ count: newCount });
-
-      return newCount;
+  const handleYoutubeSwitchChange = async () => {
+    const restriction = await restrictionStorage.getValue();
+    setYoutubeRestriction((prev) => {
+      const newValue = !prev;
+      void restrictionStorage.setValue({ ...restriction, youtube: newValue });
+      return newValue;
     });
   };
 
   return (
-    <div className="min-w-xs min-h-96 flex flex-col items-center justify-center">
-      <p>Click on the WXT and React logos to learn more</p>
-      <Switch />
-      <Button
-        className="mt-4"
-        onClick={() => window.open("https://wxtjs.org", "_blank")}
-      >
-        WXT
-      </Button>
-      <Button
-        className="mt-4"
-        onClick={() => window.open("https://react.dev", "_blank")}
-      >
-        React
-      </Button>
-      {/* <Button className="mt-4" onClick={handleCounterIncrement}>
-        Increment Counter: {counter}
-      </Button> */}
-      <Button className="mt-4" onClick={handleCounterIncrement}>
-        Increment Counter:{" "}
-        {loading ? <LoaderCircle className="w-4 h-4 animate-spin" /> : counter}
-      </Button>
+    <div className="w-80 h-96 flex items-center justify-center bg-gray-200">
+      <div className="w-[calc(100%-1.25rem)] min-h-[calc(100%-1.25rem)] bg-white rounded-md flex flex-col items-center justify-start gap-2 px-2 py-2">
+        <div className="w-full h-8 flex items-center justify-center rounded-md">
+          <Label className="text-xl">No Need Shorts</Label>
+        </div>
+        <div className="w-full h-24 flex flex-row gap-2">
+          <div className="w-1/2 h-full flex items-center justify-center">
+            <img
+              src={youtubeIcon}
+              alt="YouTube Icon"
+              className="w-full h-1/2 object-contain"
+            />
+          </div>
+          <div className="w-1/2 h-full flex justify-around items-center">
+            <Switch
+              checked={youtubeRestriction}
+              onCheckedChange={handleYoutubeSwitchChange}
+            ></Switch>
+          </div>
+        </div>
+      </div>
     </div>
   );
-}
+};
 
 export default App;
