@@ -12,7 +12,8 @@
     "zip": "wxt zip",
     "zip:firefox": "wxt zip -b firefox",
     "compile": "tsc --noEmit",
-    "postinstall": "wxt prepare"
+    "postinstall": "wxt prepare",
+    "bp": "wxt build && wxt zip"
   },
   "dependencies": {
     "@animate-ui/react": "^2.4.3",
