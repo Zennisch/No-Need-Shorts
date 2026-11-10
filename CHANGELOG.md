@@ -1,0 +1,1 @@
+- pnpm dlx wxt@latest init
