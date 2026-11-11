@@ -1,31 +1,33 @@
-export function observeElements(
-    selector: string,
-    callback: (element: Element) => void,
-): MutationObserver {
-    const process = (root: ParentNode) => {
-        root.querySelectorAll(selector).forEach(callback);
-    }
+type ElementRule = {
+  selector: string;
+  callback: (element: Element) => void;
+};
 
-    process(document);
+export function observeElements(rules: ElementRule[]): MutationObserver {
+  for (const { selector, callback } of rules) {
+    document.querySelectorAll(selector).forEach(callback);
+  }
 
-    const observer = new MutationObserver((mutations) => {
-        for (const mutation of mutations) {
-            mutation.addedNodes.forEach((node) => {
-                if (!(node instanceof Element)) return;
+  const observer = new MutationObserver((mutations) => {
+    for (const mutation of mutations) {
+      mutation.addedNodes.forEach((node) => {
+        if (!(node instanceof Element)) return;
 
-                if (node.matches(selector)) {
-                    callback(node);
-                }
+        for (const { selector, callback } of rules) {
+          // Check if the added node matches the selector or contains matching elements
+          if (node.matches(selector)) callback(node);
 
-                process(node);
-            });
+          // Check for matching elements within the added node
+          node.querySelectorAll(selector).forEach(callback);
         }
-    })
+      });
+    }
+  });
 
-    observer.observe(document.documentElement, {
-        childList: true,
-        subtree: true,
-    });
+  observer.observe(document.documentElement, {
+    childList: true,
+    subtree: true,
+  });
 
-    return observer;
+  return observer;
 }

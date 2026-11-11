@@ -20,12 +20,12 @@ export default defineContentScript({
     });
 
     if (youtubeRestriction) {
-      const observer = observeElements(
-        'ytd-rich-section-renderer[page-subtype="home"]',
-        (element) => {
-          element.remove();
-        },
-      );
+      const removeElements = [
+        {'selector': 'ytd-rich-section-renderer[page-subtype="home"]', 'callback': (element: Element) => element.remove()},
+        {'selector': 'yt-horizontal-list-renderer', 'callback': (element: Element) => element.remove()}
+      ];
+
+      const observer = observeElements(removeElements);
 
       ctx.addEventListener(window, "pagehide", () => {
         observer.disconnect();
