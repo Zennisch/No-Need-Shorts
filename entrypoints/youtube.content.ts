@@ -4,7 +4,6 @@ import { restrictionStorage } from "./lib/storage/restriction";
 export default defineContentScript({
   matches: ["*://*.youtube.com/*"],
   async main(ctx) {
-    console.log("Hello content.");
     const storage = await restrictionStorage.getValue();
 
     if (!storage) {
@@ -13,23 +12,22 @@ export default defineContentScript({
     }
 
     const youtubeRestriction = storage.youtube;
-    console.log("YouTube Restriction:", youtubeRestriction);
 
-    ctx.addEventListener(window, "wxt:locationchange", () => {
-      console.log("Location changed:", location.href);
+    ctx.addEventListener(window, "wxt:locationchange", (event) => {
+      console.log("Location before:", event.oldUrl.href);
+      console.log("Location after:", event.newUrl.href);
+      console.log("New pathname:", event.newUrl.pathname);
     });
 
     const observer = observeElements(
       'ytd-rich-section-renderer[page-subtype="home"]',
       (element) => {
         element.remove();
-        console.log("Removed YouTube Shorts section:", element);
       },
     );
 
     ctx.addEventListener(window, "pagehide", () => {
       observer.disconnect();
-      console.log("Observer disconnected on pagehide.");
     });
   },
 });

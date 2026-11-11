@@ -1,9 +1,3 @@
-export const removeElements = (selector: string): void => {
-  document.querySelectorAll(selector).forEach((element) => {
-    element.remove();
-  });
-};
-
 export function observeElements(
     selector: string,
     callback: (element: Element) => void,
