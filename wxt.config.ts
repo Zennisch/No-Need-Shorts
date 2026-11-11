@@ -14,6 +14,7 @@ export default defineConfig({
     }
   }),
   manifest: {
-    permissions: ['storage']
+    permissions: ['storage'],
+    host_permissions: ['*://*.youtube.com/*', '*://*.facebook.com/*'],
   }
 });
