@@ -16,11 +16,17 @@ const App = () => {
 
   const handleYoutubeSwitchChange = async () => {
     const restriction = await restrictionStorage.getValue();
-    setYoutubeRestriction((prev) => {
-      const newValue = !prev;
-      void restrictionStorage.setValue({ ...restriction, youtube: newValue });
-      return newValue;
+    const newValue = !youtubeRestriction;
+    void restrictionStorage.setValue({ ...restriction, youtube: newValue });
+    setYoutubeRestriction(newValue);
+
+    const [tab] = await browser.tabs.query({
+      active: true,
+      currentWindow: true,
     });
+    if (tab && tab.id && tab.url?.includes("youtube.com")) {
+      await browser.tabs.reload(tab.id);
+    }
   };
 
   return (
