@@ -2,7 +2,7 @@
   "name": "No Need Shorts",
   "description": "A browser extension to block short contents",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "scripts": {
     "dev": "wxt",

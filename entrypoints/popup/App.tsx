@@ -97,7 +97,7 @@ const App = () => {
         style={{ fontFamily: "'Manrope Variable', system-ui, sans-serif" }}
       >
         {/* Header */}
-        <header className="flex items-center gap-3 px-1 pb-4">
+        <header className="flex justify-center items-center gap-3 px-1 pb-4">
           <div className="relative flex h-10 w-6 items-center justify-center rounded-[7px] border-2 border-emerald-300">
             <Slash
               className="size-5 -rotate-12 text-emerald-300"
