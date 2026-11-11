@@ -14,20 +14,22 @@ export default defineContentScript({
     const youtubeRestriction = storage.youtube;
 
     ctx.addEventListener(window, "wxt:locationchange", (event) => {
-      console.log("Location before:", event.oldUrl.href);
-      console.log("Location after:", event.newUrl.href);
-      console.log("New pathname:", event.newUrl.pathname);
+      if (youtubeRestriction && event.newUrl.pathname.startsWith("/shorts/")) {
+        window.location.href = "https://www.youtube.com/";
+      }
     });
 
-    const observer = observeElements(
-      'ytd-rich-section-renderer[page-subtype="home"]',
-      (element) => {
-        element.remove();
-      },
-    );
+    if (youtubeRestriction) {
+      const observer = observeElements(
+        'ytd-rich-section-renderer[page-subtype="home"]',
+        (element) => {
+          element.remove();
+        },
+      );
 
-    ctx.addEventListener(window, "pagehide", () => {
-      observer.disconnect();
-    });
+      ctx.addEventListener(window, "pagehide", () => {
+        observer.disconnect();
+      });
+    }
   },
 });
