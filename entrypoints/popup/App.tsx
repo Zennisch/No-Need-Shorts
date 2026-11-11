@@ -1,6 +1,5 @@
 import { Label } from "@/components/ui/label";
 import youtubeIcon from "@/assets/youtubeIcon.png";
-import { Switch } from "@/components/ui/switch";
 import { restrictionStorage } from "../lib/storage/restriction";
 
 const App = () => {
@@ -30,24 +29,22 @@ const App = () => {
   };
 
   return (
-    <div className="w-80 h-96 flex items-center justify-center bg-gray-200">
-      <div className="w-[calc(100%-1.25rem)] min-h-[calc(100%-1.25rem)] bg-white rounded-md flex flex-col items-center justify-start gap-2 px-2 py-2">
-        <div className="w-full h-8 flex items-center justify-center rounded-md">
-          <Label className="text-xl">No Need Shorts</Label>
-        </div>
-        <div className="w-full h-24 flex flex-row gap-2">
-          <div className="w-1/2 h-full flex items-center justify-center">
+    <div className="w-56 pt-4 flex flex-col items-center justify-start gap-4 bg-linear-to-b from-cyan-500 to-blue-500">
+      <div className="w-full h-8 flex items-center justify-center">
+        <Label className="text-2xl text-zinc-100">No Need Shorts</Label>
+      </div>
+      <div className="w-full h-full bg-white rounded-t-xl flex flex-col items-center justify-start">
+        <div className="w-full h-24 flex flex-row">
+          <div className="w-1/2 h-full flex items-center justify-center" onClick={handleYoutubeSwitchChange}>
             <img
               src={youtubeIcon}
               alt="YouTube Icon"
-              className="w-full h-1/2 object-contain"
+              className={`w-full h-1/2 object-contain cursor-pointer transition-all duration-300 ${youtubeRestriction ? "" : "grayscale"}`}
             />
           </div>
-          <div className="w-1/2 h-full flex justify-around items-center">
-            <Switch
-              checked={youtubeRestriction}
-              onCheckedChange={handleYoutubeSwitchChange}
-            ></Switch>
+          <div className="w-1/2 h-full flex flex-col justify-center items-center">
+            <Label className="text-xl text-red-500">YouTube</Label>
+            <Label className="text-md text-zinc-800">Restriction {youtubeRestriction ? "ON" : "OFF"}</Label>
           </div>
         </div>
       </div>
