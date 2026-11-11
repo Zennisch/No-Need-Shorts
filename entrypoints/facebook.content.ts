@@ -4,12 +4,6 @@ export default defineContentScript({
     matches: ['*://*.facebook.com/*'],
     async main(ctx) {
         const storage = await restrictionStorage.getValue();
-
-        if (!storage) {
-            console.error('Failed to retrieve storage values.');
-            return;
-        }
-
         const facebookRestriction = storage.facebook;
 
         ctx.addEventListener(window, 'wxt:locationchange', (event) => {

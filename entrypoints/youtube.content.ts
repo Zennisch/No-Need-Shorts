@@ -5,12 +5,6 @@ export default defineContentScript({
   matches: ["*://*.youtube.com/*"],
   async main(ctx) {
     const storage = await restrictionStorage.getValue();
-
-    if (!storage) {
-      console.error("Failed to retrieve storage values.");
-      return;
-    }
-
     const youtubeRestriction = storage.youtube;
 
     ctx.addEventListener(window, "wxt:locationchange", (event) => {
