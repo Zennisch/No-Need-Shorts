@@ -13,3 +13,7 @@
 - pnpm dlx @animate-ui/cli@latest animate all
 
 - lib/storage: Add storage utility functions to get and set values in the browser's local storage.
+
+- Update popup.tsx: Add a button to toggle the "No Need Shorts" feature and display the current status.
+
+- Create multiple content scripts for different websites to log a message when the content script is loaded.
