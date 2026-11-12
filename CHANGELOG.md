@@ -17,3 +17,5 @@
 - Update popup.tsx: Add a button to toggle the "No Need Shorts" feature and display the current status.
 
 - Create multiple content scripts for different websites to log a message when the content script is loaded.
+
+- pnpm add -D @wxt-dev/auto-icons
